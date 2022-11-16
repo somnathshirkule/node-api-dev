@@ -3,10 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 export const CustomerSchema = new Schema({
-    name: {
-        type: String,
-        required: 'Enter Name'
-    },
+    name: String,
     phone: Number,
     city: String,
     email: String,

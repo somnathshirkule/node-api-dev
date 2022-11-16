@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import { addNewCustomer } from './src/Controllers/CustomerController.js';
+import { addCustomerController } from './src/Controllers/CustomerController.js';
+
 const app = express();
 const PORT = 8080;
 
@@ -13,24 +14,14 @@ mongoose.connect(MONGO_CON_STR,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get(`/customers`, (req, res) => {
-    res.send(`GET API is working`);
-});
+addCustomerController(app);
 
-//app.route.post
-app.post(`/customers`, addNewCustomer);
-
-app.put(`/customers/:customerId`, (req, res) => {
-    res.send(`PUT API is working`);
-});
-
-app.delete(`/customers/:customerId`, (req, res) => {
-    res.send(`DELETE API is working`);
-});
+app.get('/', (req, res) =>{
+  res.json({'message':`Express server running on port ${PORT}`});
+})
 
 app.listen(PORT, () => console.log(`Express server started on port ${PORT}`));
 
