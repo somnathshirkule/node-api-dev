@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import { addCustomerController } from './src/Controllers/CustomerController.js';
+import { addCustomerController } from './src/controllers/customerController.js';
 
 const app = express();
 const PORT = 8080;
