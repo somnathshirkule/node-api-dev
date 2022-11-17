@@ -6,6 +6,8 @@ const Customer = mongoose.model('Customer', CustomerSchema);
 export const addCustomerController = (app) =>{
     app.get(`/customers`, fetchAllCustomers);
     
+    app.get(`/customers/:customerId`, getByCustomerId);
+
     app.post(`/customers`, addNewCustomer);
     
     app.put(`/customers/:customerId`, (req, res) => {
@@ -35,3 +37,11 @@ export const fetchAllCustomers = (req, res) => {
     res.json(customer);
   });
 }
+
+export const getByCustomerId = (req, res) => {
+  Customer.findById(req.params.customerId, (error, customer) =>{
+    if(error)
+      res.send(error);
+    res.json(customer);
+  });
+};
