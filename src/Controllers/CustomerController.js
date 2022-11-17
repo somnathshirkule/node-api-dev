@@ -10,13 +10,9 @@ export const addCustomerController = (app) =>{
 
     app.post(`/customers`, addNewCustomer);
     
-    app.put(`/customers/:customerId`, (req, res) => {
-        res.send(`PUT API is working`);
-    });
+    app.put(`/customers/:customerId`, updateById);
     
-    app.delete(`/customers/:customerId`, (req, res) => {
-        res.send(`DELETE API is working`);
-    });
+    app.delete(`/customers/:customerId`, deleteById);
 }
 
 
@@ -43,5 +39,21 @@ export const getByCustomerId = (req, res) => {
     if(error)
       res.send(error);
     res.json(customer);
+  });
+};
+
+export const deleteById = (req, res) =>{
+Customer.findByIdAndDelete(req.params.customerId, (error, customer) =>{
+  if(error)
+    res.send(error);
+  res.json(customer);
+})
+};
+
+export const updateById = (req, res) =>{
+  Customer.findOneAndUpdate({_id: req.params.customerId}, req.body, {new: true} ,(error, customer) => {
+  if(error)
+    res.send(error);
+  res.json(customer);
   });
 };
