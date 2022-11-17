@@ -1,18 +1,19 @@
 import mongoose from "mongoose";
 import { CustomerSchema } from "../models/customer.js";
+import { tokenValidator } from "../filters/authenticationFilter.js";
 
 const Customer = mongoose.model('Customer', CustomerSchema);
 
 export const addCustomerController = (app) =>{
-    app.get(`/customers`, fetchAllCustomers);
+    app.get(`/customers`, tokenValidator, fetchAllCustomers);
     
-    app.get(`/customers/:customerId`, getByCustomerId);
+    app.get(`/customers/:customerId`, tokenValidator, getByCustomerId);
 
-    app.post(`/customers`, addNewCustomer);
+    app.post(`/customers`, tokenValidator, addNewCustomer);
     
-    app.put(`/customers/:customerId`, updateById);
+    app.put(`/customers/:customerId`, tokenValidator, updateById);
     
-    app.delete(`/customers/:customerId`, deleteById);
+    app.delete(`/customers/:customerId`, tokenValidator, deleteById);
 }
 
 
